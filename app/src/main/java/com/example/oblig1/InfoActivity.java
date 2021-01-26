@@ -1,6 +1,7 @@
 package com.example.oblig1;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,6 +66,10 @@ public class InfoActivity extends Activity {
 
             return view;
         }
+    }
+    public void addPicture(View view){
+        Intent i = new Intent(this, UploadPhoto.class);
+        startActivity(i);
     }
 
 
