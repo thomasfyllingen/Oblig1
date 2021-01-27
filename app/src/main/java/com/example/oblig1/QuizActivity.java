@@ -1,9 +1,7 @@
 package com.example.oblig1;
 
-import android.content.Context;
-import android.media.Image;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +14,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.File;
-import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Random;
 
@@ -46,28 +42,21 @@ public class QuizActivity  extends AppCompatActivity {
         imageView =(ImageView) findViewById(R.id.imageView);
         button = (Button) findViewById(R.id.answerButton);
 
-        DateHolder1 data = (DateHolder1) getApplicationContext();
-        List<Image1> imageList = data.getList();
+        DataHolder data = (DataHolder) getApplicationContext();
+        List<Image> imageList = data.getList();
 
         r= new Random();
         pickedImage= r.nextInt(imageList.size());
-        imageView.setImageResource(imageList.get(pickedImage).image);
-
-
-
-
+        imageView.setImageBitmap(imageList.get(pickedImage).image);
         button.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
                 EditText answerText =(EditText) findViewById(R.id.svarEditText1);
                 String answer = answerText.getText().toString();
 
-                answerTextView=(TextView) findViewById(R.id.answereTextID);
-                answerTextView.setText(answer);
-
                 // Setter poengsummen
-
                 if (answer.equals(imageList.get(pickedImage).name)){
                     poengTextView = (TextView) findViewById(R.id.poengTextView1);
                     poeng++;
@@ -76,8 +65,8 @@ public class QuizActivity  extends AppCompatActivity {
                     LayoutInflater inflater = getLayoutInflater();
                     View layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_root));
                     TextView toastl = layout.findViewById(R.id.toastTextView1);
-                    String correctAnswere = imageList.get(pickedImage).name;
-                    toastl.setText("Correct answere was: " + correctAnswere );
+                    String correctAnswer = imageList.get(pickedImage).name;
+                    toastl.setText("Correct answer was: " + correctAnswer );
                     Toast toast = new Toast(getApplicationContext());
                     toast.setGravity(Gravity.CENTER, 0 , 350 );
                     toast.setDuration(Toast.LENGTH_LONG);
@@ -85,8 +74,6 @@ public class QuizActivity  extends AppCompatActivity {
                     toast.show();
 
                 }
-
-
                 // setter antall forsøk
                 resulTextView =(TextView) findViewById(R.id.resultatTextView1);
                 resultat ++;
@@ -95,17 +82,14 @@ public class QuizActivity  extends AppCompatActivity {
 
                 // setter tilfeldig bilde
                 pickedImage= r.nextInt(imageList.size());
-                imageView.setImageResource(imageList.get(pickedImage).image);
-                // se riktig svar
-                cheatTextView = (TextView) findViewById(R.id.cheatTextView1);
-                cheatTextView.setText(imageList.get(pickedImage).name);
-
+                imageView.setImageBitmap(imageList.get(pickedImage).image);
             }
         });
-
-
     }
-
-
+    //Navigate back
+    public void navigation(View view){
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
 
 }

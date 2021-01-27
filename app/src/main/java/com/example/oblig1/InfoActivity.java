@@ -3,7 +3,6 @@ package com.example.oblig1;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -22,21 +21,21 @@ public class InfoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_activity);
 
-        DateHolder1 data = (DateHolder1) getApplicationContext();
-        List<Image1> imageList = data.getList();
+        DataHolder data = (DataHolder) getApplicationContext();
+        List<Image> imageList = data.getList();
 
 
         myListView = findViewById(R.id.simpleListView);
 
-        CustomeAdapter customeAdapter = new CustomeAdapter();
-        myListView.setAdapter(customeAdapter);
+        CustomAdapter customAdapter = new CustomAdapter();
+        myListView.setAdapter(customAdapter);
 
     }
-    public class CustomeAdapter extends BaseAdapter {
+    public class CustomAdapter extends BaseAdapter {
         ListView myListView;
 
-        DateHolder1 data = (DateHolder1) getApplicationContext();
-        List<Image1> imageList = data.getList();
+        DataHolder data = (DataHolder) getApplicationContext();
+        List<Image> imageList = data.getList();
 
         @Override
         public int getCount() {
@@ -61,7 +60,7 @@ public class InfoActivity extends Activity {
             ImageView imgView = (ImageView) view.findViewById(R.id.imageviewLL);
             TextView mTextView = (TextView) view.findViewById(R.id.textViewLL);
 
-            imgView.setImageResource(imageList.get(position).image);
+            imgView.setImageBitmap(imageList.get(position).image);
             mTextView.setText(imageList.get(position).name);
 
             return view;
@@ -69,6 +68,14 @@ public class InfoActivity extends Activity {
     }
     public void addPicture(View view){
         Intent i = new Intent(this, UploadPhoto.class);
+        startActivity(i);
+    }
+    public void removePicture(View view){
+        Intent i = new Intent(this, DeletePhoto.class);
+        startActivity(i);
+    }
+    public void navigation(View view){
+        Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
 
