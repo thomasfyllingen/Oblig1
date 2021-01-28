@@ -40,6 +40,7 @@ public class UploadPhoto extends AppCompatActivity implements View.OnClickListen
         buttonSubmit.setOnClickListener(this);
     }
 
+    //Creating the choose file popup
     private void showFileChooser(){
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -47,6 +48,7 @@ public class UploadPhoto extends AppCompatActivity implements View.OnClickListen
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
+    //Deciding what to do with the image from the previous method
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -55,15 +57,17 @@ public class UploadPhoto extends AppCompatActivity implements View.OnClickListen
             try{
                 bitmap = MediaStore. Images.Media.getBitmap(getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
+                buttonSubmit.setVisibility(1);
             }catch(IOException io){
 
             }
         }
     }
 
+    //Starts file chooser if the choose button was pressed
+    //or submits the image to the "database" if the submit button was pressed
     @Override
     public void onClick(View view){
-
         if(view == buttonChoose){
         showFileChooser();
         }
@@ -77,6 +81,7 @@ public class UploadPhoto extends AppCompatActivity implements View.OnClickListen
         }
 
     }
+    //Navigating back
     public void navigation(View view){
         Intent i = new Intent(this, InfoActivity.class);
         startActivity(i);

@@ -14,7 +14,6 @@
             android:theme="@style/Theme.Oblig1.NoActionBar"></activity>
         <activity
             android:name=".UploadPhoto"
-            android:label="@string/title_activity_main2"
             android:theme="@style/Theme.Oblig1.NoActionBar" />
         <activity
             android:name=".InfoActivity"

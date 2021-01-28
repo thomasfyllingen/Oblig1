@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="15dp"
-    tools:context="com.example.oblig1.InfoActivity">
+    android:visibility="visible"
+    tools:context="com.example.oblig1.InfoActivity"
+    tools:visibility="visible">
 
 
     <ImageView
@@ -39,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:ems="10"
+        android:hint="Insert name here"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.517"
@@ -51,15 +53,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="59dp"
         android:text="Submit"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ChooseButton" />
+        app:layout_constraintTop_toBottomOf="@+id/ChooseButton"
+        tools:visibility="invisible" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="334dp"
-        android:layout_height="53dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"

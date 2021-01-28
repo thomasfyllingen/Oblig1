@@ -22,7 +22,7 @@ public class DeletePhoto extends AppCompatActivity implements View.OnClickListen
 
          deleteButton = (Button) findViewById(R.id.DeleteButton);
     }
-
+    //A method that deletes the image with the given text from the "database" when button is pressed
     @Override
     public void onClick(View view){
         if(view == deleteButton){
@@ -40,7 +40,7 @@ public class DeletePhoto extends AppCompatActivity implements View.OnClickListen
             Toast.makeText(this, "Picture wasn't removed, the name must be spelled correctly", Toast.LENGTH_LONG).show();
         }
     }
-
+    //Navigate back
     public void navigation(View view){
         Intent i = new Intent(this, InfoActivity.class);
         startActivity(i);

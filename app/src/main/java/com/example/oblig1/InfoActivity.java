@@ -31,6 +31,7 @@ public class InfoActivity extends Activity {
         myListView.setAdapter(customAdapter);
 
     }
+    //A class for making rows of images and names
     public class CustomAdapter extends BaseAdapter {
         ListView myListView;
 
@@ -66,14 +67,17 @@ public class InfoActivity extends Activity {
             return view;
         }
     }
+    //Start activity UploadPhoto
     public void addPicture(View view){
         Intent i = new Intent(this, UploadPhoto.class);
         startActivity(i);
     }
+    //Start activity DeletePhoto
     public void removePicture(View view){
         Intent i = new Intent(this, DeletePhoto.class);
         startActivity(i);
     }
+    //Navigate back
     public void navigation(View view){
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
