@@ -83,7 +83,10 @@ public class QuizActivity  extends AppCompatActivity {
                 // setter tilfeldig bilde
                 pickedImage= r.nextInt(imageList.size());
                 imageView.setImageBitmap(imageList.get(pickedImage).image);
+
+                answerText.setText("");
             }
+
         });
     }
     //Navigate back
