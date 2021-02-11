@@ -1,6 +1,7 @@
 package com.example.oblig1;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import java.util.List;
 import java.util.Random;
@@ -27,9 +29,7 @@ public class QuizActivity  extends AppCompatActivity {
 
     TextView poengTextView;
     TextView resulTextView;
-    TextView cheatTextView;
-    TextView answerTextView;
-    int poeng;
+    int poeng = 0;
     int resultat;
 
 
@@ -42,12 +42,11 @@ public class QuizActivity  extends AppCompatActivity {
         imageView =(ImageView) findViewById(R.id.imageView);
         button = (Button) findViewById(R.id.answerButton);
 
-        DataHolder data = (DataHolder) getApplicationContext();
-        List<Image> imageList = data.getList();
-
+        ImageDatabase db = Room.databaseBuilder(getApplicationContext(), ImageDatabase.class, "imagedb").build();
+        List<Image> imageList = db.imageDAO().getAll();
         r= new Random();
         pickedImage= r.nextInt(imageList.size());
-        imageView.setImageBitmap(imageList.get(pickedImage).image);
+        imageView.setImageURI(Uri.parse(imageList.get(pickedImage).image));
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -82,7 +81,7 @@ public class QuizActivity  extends AppCompatActivity {
 
                 // setter tilfeldig bilde
                 pickedImage= r.nextInt(imageList.size());
-                imageView.setImageBitmap(imageList.get(pickedImage).image);
+                imageView.setImageURI(Uri.parse(imageList.get(pickedImage).image));
 
                 answerText.setText("");
             }

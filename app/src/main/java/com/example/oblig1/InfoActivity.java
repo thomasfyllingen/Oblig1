@@ -2,6 +2,7 @@ package com.example.oblig1;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.room.Room;
 
 import java.util.List;
 
@@ -21,26 +24,27 @@ public class InfoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_activity);
 
-        DataHolder data = (DataHolder) getApplicationContext();
-        List<Image> imageList = data.getList();
-
-
         myListView = findViewById(R.id.simpleListView);
-
-        CustomAdapter customAdapter = new CustomAdapter();
+        ImageDatabase db = ImageDatabase.getDatabase(this);
+        List<Image> imageList = db.imageDAO().getAll();
+        CustomAdapter customAdapter = new CustomAdapter(imageList);
         myListView.setAdapter(customAdapter);
 
     }
     //A class for making rows of images and names
     public class CustomAdapter extends BaseAdapter {
         ListView myListView;
+        List<Image> imageListen;
 
-        DataHolder data = (DataHolder) getApplicationContext();
-        List<Image> imageList = data.getList();
+        public CustomAdapter(List<Image> imageList){
+            imageListen = imageList;
+        }
+
+
 
         @Override
         public int getCount() {
-            return imageList.size();
+            return imageListen.size();
         }
 
         @Override
@@ -61,8 +65,8 @@ public class InfoActivity extends Activity {
             ImageView imgView = (ImageView) view.findViewById(R.id.imageviewLL);
             TextView mTextView = (TextView) view.findViewById(R.id.textViewLL);
 
-            imgView.setImageBitmap(imageList.get(position).image);
-            mTextView.setText(imageList.get(position).name);
+            imgView.setImageURI(Uri.parse(imageListen.get(position).image));
+            mTextView.setText(imageListen.get(position).name);
 
             return view;
         }

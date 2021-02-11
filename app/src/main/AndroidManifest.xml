@@ -3,7 +3,6 @@
     package="com.example.oblig1">
 
     <application
-        android:name=".DataHolder"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

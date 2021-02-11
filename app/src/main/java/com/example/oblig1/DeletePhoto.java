@@ -1,6 +1,7 @@
 package com.example.oblig1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,8 +27,8 @@ public class DeletePhoto extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View view){
         if(view == deleteButton){
-            DataHolder data = (DataHolder) getApplicationContext();
-            List<Image> imageList = data.getList();
+            ImageDatabase db = ImageDatabase.getDatabase(this);
+            List<Image> imageList = db.imageDAO().getAll();
             EditText deleteNameText = findViewById(R.id.deleteNameText);
             namePic = deleteNameText.getText().toString();
             for (Image i : imageList){

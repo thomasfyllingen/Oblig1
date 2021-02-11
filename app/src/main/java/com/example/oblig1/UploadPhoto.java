@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,9 +23,7 @@ public class UploadPhoto extends AppCompatActivity implements View.OnClickListen
     private Button buttonChoose;
     private ImageView imageView;
     private Button buttonSubmit;
-    private Uri filePath;
-    private Bitmap bitmap;
-    private static final int STORAGE_PERMISSION_CODE = 123;
+    Uri uri;
     private static final int PICK_IMAGE_REQUEST = 234;
     String namePic;
     @Override
@@ -53,14 +52,9 @@ public class UploadPhoto extends AppCompatActivity implements View.OnClickListen
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
-            filePath = data.getData();
-            try{
-                bitmap = MediaStore. Images.Media.getBitmap(getContentResolver(), filePath);
-                imageView.setImageBitmap(bitmap);
-                buttonSubmit.setVisibility(1);
-            }catch(IOException io){
-
-            }
+            uri = data.getData();
+            imageView.setImageURI(uri);
+            buttonSubmit.setVisibility(View.VISIBLE);
         }
     }
 
@@ -72,11 +66,12 @@ public class UploadPhoto extends AppCompatActivity implements View.OnClickListen
         showFileChooser();
         }
         if (view == buttonSubmit) {
-            DataHolder data = (DataHolder) getApplicationContext();
-            List<Image> imageList = data.getList();
+            ImageDatabase db = ImageDatabase.getDatabase(this);
+
             EditText editTextName1 = findViewById(R.id.editTextName1);
             namePic = editTextName1.getText().toString();
-            imageList.add(new Image(bitmap, namePic ));
+            db.imageDAO().insertImage(new Image(uri.toString(), namePic ));
+
             Toast.makeText(this, "Picture added", Toast.LENGTH_LONG).show();
         }
 
