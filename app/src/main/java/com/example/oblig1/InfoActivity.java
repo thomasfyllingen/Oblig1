@@ -1,9 +1,12 @@
 package com.example.oblig1;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -57,9 +60,9 @@ public class InfoActivity extends Activity {
             return 0;
         }
 
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
             View view = getLayoutInflater().inflate(R.layout.list_row, null);
 
             ImageView imgView = (ImageView) view.findViewById(R.id.imageviewLL);
@@ -67,7 +70,6 @@ public class InfoActivity extends Activity {
 
             imgView.setImageURI(Uri.parse(imageListen.get(position).image));
             mTextView.setText(imageListen.get(position).name);
-
             return view;
         }
     }

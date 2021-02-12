@@ -42,7 +42,7 @@ public class QuizActivity  extends AppCompatActivity {
         imageView =(ImageView) findViewById(R.id.imageView);
         button = (Button) findViewById(R.id.answerButton);
 
-        ImageDatabase db = Room.databaseBuilder(getApplicationContext(), ImageDatabase.class, "imagedb").build();
+        ImageDatabase db = ImageDatabase.getDatabase(this);
         List<Image> imageList = db.imageDAO().getAll();
         r= new Random();
         pickedImage= r.nextInt(imageList.size());

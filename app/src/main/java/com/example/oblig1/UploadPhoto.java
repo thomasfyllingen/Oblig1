@@ -1,5 +1,6 @@
 package com.example.oblig1;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -41,18 +42,18 @@ public class UploadPhoto extends AppCompatActivity implements View.OnClickListen
 
     //Creating the choose file popup
     private void showFileChooser(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
     //Deciding what to do with the image from the previous method
+    @SuppressLint("NewApi")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
             uri = data.getData();
+            getContentResolver().takePersistableUriPermission(uri, data.FLAG_GRANT_READ_URI_PERMISSION);
             imageView.setImageURI(uri);
             buttonSubmit.setVisibility(View.VISIBLE);
         }

@@ -23,10 +23,6 @@ public class AnswerTest {
     @Rule
     public ActivityScenarioRule<QuizActivity> qActivity = new ActivityScenarioRule<>(QuizActivity.class);
 
-    @Before
-    public void Navigate(){
-        onView(withId(R.id.quizButton1)).perform(click());
-    }
 
     @Test
     public void testWrongAnswer() {
