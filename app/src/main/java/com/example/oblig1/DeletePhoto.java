@@ -33,7 +33,7 @@ public class DeletePhoto extends AppCompatActivity implements View.OnClickListen
             namePic = deleteNameText.getText().toString();
             for (Image i : imageList){
                 if(namePic.equals(i.name)){
-                    imageList.remove(i);
+                    db.imageDAO().delete(i);
                     Toast.makeText(this, "Picture removed", Toast.LENGTH_LONG).show();
                     return;
                 }
