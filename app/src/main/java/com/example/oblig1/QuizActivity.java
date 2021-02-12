@@ -31,7 +31,7 @@ public class QuizActivity  extends AppCompatActivity {
     TextView resulTextView;
     int poeng = 0;
     int resultat;
-
+    List<Image> imageList;
 
 
     @Override
@@ -43,7 +43,7 @@ public class QuizActivity  extends AppCompatActivity {
         button = (Button) findViewById(R.id.answerButton);
 
         ImageDatabase db = ImageDatabase.getDatabase(this);
-        List<Image> imageList = db.imageDAO().getAll();
+        imageList = db.imageDAO().getAll();
         r= new Random();
         pickedImage= r.nextInt(imageList.size());
         imageView.setImageURI(Uri.parse(imageList.get(pickedImage).image));

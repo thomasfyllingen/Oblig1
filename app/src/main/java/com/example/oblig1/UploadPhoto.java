@@ -38,6 +38,7 @@ public class UploadPhoto extends AppCompatActivity implements View.OnClickListen
 
         buttonChoose.setOnClickListener(this);
         buttonSubmit.setOnClickListener(this);
+        buttonSubmit.setVisibility(View.VISIBLE);
     }
 
     //Creating the choose file popup
@@ -71,6 +72,7 @@ public class UploadPhoto extends AppCompatActivity implements View.OnClickListen
 
             EditText editTextName1 = findViewById(R.id.editTextName1);
             namePic = editTextName1.getText().toString();
+
             db.imageDAO().insertImage(new Image(uri.toString(), namePic ));
 
             Toast.makeText(this, "Picture added", Toast.LENGTH_LONG).show();

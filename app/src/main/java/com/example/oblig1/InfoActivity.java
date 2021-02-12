@@ -21,7 +21,7 @@ import java.util.List;
 public class InfoActivity extends Activity {
 
     ListView myListView;
-
+    List<Image> imageList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +29,7 @@ public class InfoActivity extends Activity {
 
         myListView = findViewById(R.id.simpleListView);
         ImageDatabase db = ImageDatabase.getDatabase(this);
-        List<Image> imageList = db.imageDAO().getAll();
+        imageList = db.imageDAO().getAll();
         CustomAdapter customAdapter = new CustomAdapter(imageList);
         myListView.setAdapter(customAdapter);
 
