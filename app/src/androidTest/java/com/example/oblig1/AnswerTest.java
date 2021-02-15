@@ -34,6 +34,10 @@ public class AnswerTest {
         return activityRef.get();
     }
 
+    @Before
+    public void setUp(){
+        
+    }
     @Test
     public void testWrongAnswer() {
         onView(withId(R.id.svarEditText1)).perform(typeText("Baby"), closeSoftKeyboard());

@@ -44,7 +44,8 @@ public class UploadPhoto extends AppCompatActivity implements View.OnClickListen
     //Creating the choose file popup
     private void showFileChooser(){
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        //startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
     //Deciding what to do with the image from the previous method
@@ -54,8 +55,15 @@ public class UploadPhoto extends AppCompatActivity implements View.OnClickListen
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
             uri = data.getData();
-            getContentResolver().takePersistableUriPermission(uri, data.FLAG_GRANT_READ_URI_PERMISSION);
-            imageView.setImageURI(uri);
+            Uri IMGUri = Uri.parse("android.resource://com.example.oblig1/drawable24/" + R.drawable.kiwi);
+            if (!uri.toString().startsWith("android.resource:")) {
+                getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                imageView.setImageURI(uri);
+            }else{
+                imageView.setImageURI(IMGUri);
+            }
+
+
             buttonSubmit.setVisibility(View.VISIBLE);
         }
     }
@@ -72,7 +80,6 @@ public class UploadPhoto extends AppCompatActivity implements View.OnClickListen
 
             EditText editTextName1 = findViewById(R.id.editTextName1);
             namePic = editTextName1.getText().toString();
-
             db.imageDAO().insertImage(new Image(uri.toString(), namePic ));
 
             Toast.makeText(this, "Picture added", Toast.LENGTH_LONG).show();
